@@ -1,0 +1,18 @@
+{
+  "devDependencies": {
+    "typescript": "^4.8.3"
+  },
+  "name": "latest",
+  "version": "1.0.0",
+  "description": "latest file",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "live-server"
+  },
+  "keywords": [
+    "typescript"
+  ],
+  "author": "ebimo21",
+  "license": "ISC"
+}
