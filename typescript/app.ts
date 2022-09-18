@@ -1,6 +1,6 @@
 const heading = document.getElementById("heading") as HTMLDivElement;
 const root = document.getElementById("root") as HTMLDivElement;
-const todoUL = document.getElementById("ulItem") as HTMLDivElement;
+const todoUL = document.getElementById("ulItem") as HTMLUListElement;
 const formEl:HTMLFormElement = document.getElementById("todo-form") as HTMLFormElement
 let listItemText: string[] ;
 
@@ -29,7 +29,14 @@ const setData = (item:string[]):void =>{
     localStorage.todolist= JSON.stringify(item)
 }
 
+const handleRemoveAllChildNode = (parent:HTMLUListElement):void=>{
+    while(parent.firstChild){
+        parent.removeChild(parent.firstChild);
+    }
+}
+
 const render = ():void =>{
+    handleRemoveAllChildNode(todoUL)
     getData().map((item:string, index:number) =>{
         const liEl:HTMLLIElement = document.createElement("li");
         const delBtn:HTMLButtonElement = document.createElement("button");
@@ -50,6 +57,7 @@ const handleDeleteTodoItem= (todo:string):VoidFunction =>{
         return function():void{
             const item:string[] = getData().filter( (item, index) => item !== todo)
             setData(item)
+            render()
         }
 }
 
@@ -61,9 +69,10 @@ const handleAddTodo =(e: any):void =>{
     const list:string = formData.get("todo-item")
     data.push(list)
     setData(data)
+    formEl.reset()
+    render()    
 }
 
 formEl.addEventListener("submit", handleAddTodo)
 
 initialize()
-const fun = 12

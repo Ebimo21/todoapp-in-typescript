@@ -23,7 +23,13 @@ const getData = () => {
 const setData = (item) => {
     localStorage.todolist = JSON.stringify(item);
 };
+const handleRemoveAllChildNode = (parent) => {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+};
 const render = () => {
+    handleRemoveAllChildNode(todoUL);
     getData().map((item, index) => {
         const liEl = document.createElement("li");
         const delBtn = document.createElement("button");
@@ -41,6 +47,7 @@ const handleDeleteTodoItem = (todo) => {
     return function () {
         const item = getData().filter((item, index) => item !== todo);
         setData(item);
+        render();
     };
 };
 const handleAddTodo = (e) => {
@@ -50,7 +57,8 @@ const handleAddTodo = (e) => {
     const list = formData.get("todo-item");
     data.push(list);
     setData(data);
+    formEl.reset();
+    render();
 };
 formEl.addEventListener("submit", handleAddTodo);
 initialize();
-const fun = 12;
